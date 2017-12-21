@@ -242,9 +242,33 @@ plot(DP2,IND1)
 plot(DP3,IND1,pch=11)
 
 #Multiple Regression 회귀분석
-#
+reg<-lm(DP1~IND1+IND2+IND3+IND4+IND5, data = DT)
+summary(reg)
 
+reg2<- lm(DP1~IND1+IND2+IND3+IND4+IND5, data=DT)
+summary(reg2)
+head(DT)
+# INSC 1~5 / DNSC 1~5
+regSC1<- lm(DPSC1~INSC1+INSC2+INSC3+INSC4+INSC5, data=DT)
+summary(regSC1)
+# 설문 분석시 이것이 더 의미가 있다.
 
-fit3$loadings
+#잔차분석
+
+par(mfrow = c(2,2))
+plot(reg2)
+residuals(reg2)
+
+#잔차가 정규성을 따르는지 테스트
+resid<-residuals(reg2)
+shapiro.test(resid)
+#p값이 0.05보다 작으면 정규분포를 따르지 않는 것
+
+install.packages("car")
+library(car)
+vif(reg2)
+#정규성에 벗어난 데이터 처리 방법 정하기
+
+it3$loadings
 fit3$scores
 
